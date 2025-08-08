@@ -41,7 +41,7 @@
     --prob:0;
     aspect-ratio:1/1; border-radius:10px; border:3px solid var(--line);
     background:
-      linear-gradient(0deg, #0b0f1a, #080b14),
+      linear-gradient(0deg, #06080f, #04060c),
       repeating-linear-gradient(135deg, #060913 0 9px, #03060d 9px 18px);
     color:#9fb3d6; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px;
     cursor:pointer; position:relative; user-select:none;
@@ -53,7 +53,7 @@
       linear-gradient(0deg, rgb(125 211 252 / calc(var(--prob)*.95)), rgb(125 211 252 / calc(var(--prob)*.95))),
       linear-gradient(0deg, #eef3ff, #eef3ff);
     border-color:#cfe0ff;
-    color:#0b1020;
+    color:#000;
     filter: brightness(calc(0.9 + var(--prob)*0.4));
   }
   /* 再生中のステップ */
@@ -75,6 +75,26 @@
   .sep{ height:1px; background:#1b233b; margin:8px 0 }
   .toggle{ background:#0f172a; border-color:#334155 }
   .toggle.on{ background:#0b2138; border-color:#4aa3d6; box-shadow:inset 0 0 0 1px #4aa3d6aa }
+
+  /* T-Chance: wide & prominent */
+  .param.tch{ width:100%; grid-template-columns:150px 1fr 70px }
+  .param.tch .value{ pointer-events:none } /* avoid accidental clicks */
+  input[type="range"].tch{ height:36px }
+
+  /* High-contrast scheme & yellow mapping for probability */
+  .step{ --prob:0 }
+  .step.active{
+    /* interpolate white -> yellow by probability */
+    --y: calc(var(--prob) * 100%);
+    background: color-mix(in oklab, #ffffff calc(100% - var(--y)), #ffd400 var(--y));
+    border-color: #d1a800;
+    color:#000;
+  }
+  .step::after{
+    /* subtle yellow glow instead of blue */
+    background:radial-gradient(70% 70% at 50% 50%, rgba(255,212,0,.85), rgba(0,0,0,0) 70%);
+  }
+
 </style>
 </head>
 <body>
@@ -127,7 +147,7 @@
         <button id="rndNowA" class="pill" title="今すぐノートをランダム化">Rnd Notes Now</button>
       </div>
       <div class="row" style="gap:12px; flex-wrap:wrap; margin-top:6px">
-        <div class="param" style="width:260px"><label>T-Chance</label><input id="tchanceA" type="range" min="0" max="100" value="100"><div class="value"><span id="tchanceAv">100</span>%</div></div>
+        <div class="param tch"><label>T-Chance</label><input class="tch" id="tchanceA" type="range" min="0" max="100" value="100"><div class="value"><span id="tchanceAv">100</span>%</div></div>
         <div class="param" style="width:220px"><label>Vol</label><input id="volA" type="range" min="0" max="100" value="50"><div class="value"><span id="volAv">50</span>%</div></div>
       </div>
       <div class="row" style="margin-top:6px">
@@ -182,7 +202,7 @@
         <button id="rndNowB" class="pill" title="今すぐノートをランダム化">Rnd Notes Now</button>
       </div>
       <div class="row" style="gap:12px; flex-wrap:wrap; margin-top:6px">
-        <div class="param" style="width:260px"><label>T-Chance</label><input id="tchanceB" type="range" min="0" max="100" value="100"><div class="value"><span id="tchanceBv">100</span>%</div></div>
+        <div class="param tch"><label>T-Chance</label><input class="tch" id="tchanceB" type="range" min="0" max="100" value="100"><div class="value"><span id="tchanceBv">100</span>%</div></div>
         <div class="param" style="width:220px"><label>Vol</label><input id="volB" type="range" min="0" max="100" value="50"><div class="value"><span id="volBv">50</span>%</div></div>
       </div>
       <div class="row" style="margin-top:6px">
