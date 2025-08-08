@@ -348,7 +348,7 @@ function fillOptions(sel, arr, selected){ sel.innerHTML=""; arr.forEach(v=>{ con
 function fillNum(sel, start, end, selected){ sel.innerHTML=""; for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; if(i===selected) o.selected=true; sel.appendChild(o); } }
 function bindRange(id, key, obj, fmt){
   const el=document.getElementById(id), v=document.getElementById(id+'v');
-  const upd=()=>{ obj[key]=Number(el.value); if(v) v.textContent=fmt?fmt(obj[key]):el.value; if(key==='xfade') applyXfade(); if(key==='gchance') refreshAllProbs(); };
+  const upd=()=>{ obj[key]=Number(el.value); if(v) v.textContent=fmt?fmt(obj[key]):el.value; if(key==='xfade') applyXfade(); if(key==='gchance'){ if(A._cellsDiv && B._cellsDiv) refreshAllProbs(); } };
   el.oninput=upd; upd();
 }
 
