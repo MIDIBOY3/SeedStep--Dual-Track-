@@ -39,28 +39,29 @@
   .grid{ display:grid; grid-template-columns:repeat(16,1fr); gap:6px; margin:8px 0 }
   .step{
     --prob:0;
-    aspect-ratio:1/1; border-radius:10px; border:2px solid var(--line);
+    aspect-ratio:1/1; border-radius:10px; border:3px solid var(--line);
     background:
-      linear-gradient(0deg, transparent, transparent),
-      repeating-linear-gradient(135deg, var(--offbg1) 0 9px, var(--offbg2) 9px 18px);
-    color:#b7c6e4; display:flex; align-items:center; justify-content:center; font-weight:700;
+      linear-gradient(0deg, #0b0f1a, #080b14),
+      repeating-linear-gradient(135deg, #060913 0 9px, #03060d 9px 18px);
+    color:#9fb3d6; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px;
     cursor:pointer; position:relative; user-select:none;
-    transition: box-shadow .12s ease, background-color .12s ease;
+    transition: box-shadow .12s ease, background-color .12s ease, border-color .12s ease, filter .06s linear;
   }
   /* ON = ソリッド、OFF = ストライプ。形状の差で色弱でも判別 */
   .step.active{
     background:
-      linear-gradient(0deg, var(--onbg), var(--onbg)),
-      repeating-linear-gradient(135deg, var(--offbg1) 0 9px, var(--offbg2) 9px 18px);
-    border-color:var(--onborder);
+      linear-gradient(0deg, rgb(125 211 252 / calc(var(--prob)*.95)), rgb(125 211 252 / calc(var(--prob)*.95))),
+      linear-gradient(0deg, #eef3ff, #eef3ff);
+    border-color:#cfe0ff;
     color:#0b1020;
+    filter: brightness(calc(0.9 + var(--prob)*0.4));
   }
   /* 再生中のステップ */
-  .step.play{ box-shadow:0 0 0 2px #7dd3fc80 inset, 0 0 18px #7dd3fc22 }
+  .step.play{ box-shadow:0 0 0 3px #7dd3fcaa inset, 0 0 26px #7dd3fc33 }
   /* 発音確率の視覚化（連続値）。T/Global/Step変更で即反映 */
   .step::after{
     content:""; position:absolute; inset:0; pointer-events:none;
-    background:radial-gradient(70% 70% at 50% 50%, rgba(125,211,252,.65), rgba(0,0,0,0) 70%);
+    background:radial-gradient(70% 70% at 50% 50%, rgba(125,211,252,.95), rgba(0,0,0,0) 70%);
     opacity:calc(var(--prob)); transition:.06s linear; mix-blend-mode:screen;
   }
   .badge{ position:absolute; right:12px; top:12px; font-size:11px; padding:6px 10px; border-radius:999px; background:#0e1422; border:1px solid #243050 }
@@ -126,7 +127,7 @@
         <button id="rndNowA" class="pill" title="今すぐノートをランダム化">Rnd Notes Now</button>
       </div>
       <div class="row" style="gap:12px; flex-wrap:wrap; margin-top:6px">
-        <div class="param" style="width:260px"><label>T-Chance</label><input id="tchanceA" type="range" min="0" max="200" value="100"><div class="value"><span id="tchanceAv">100</span>%</div></div>
+        <div class="param" style="width:260px"><label>T-Chance</label><input id="tchanceA" type="range" min="0" max="100" value="100"><div class="value"><span id="tchanceAv">100</span>%</div></div>
         <div class="param" style="width:220px"><label>Vol</label><input id="volA" type="range" min="0" max="100" value="50"><div class="value"><span id="volAv">50</span>%</div></div>
       </div>
       <div class="row" style="margin-top:6px">
@@ -181,7 +182,7 @@
         <button id="rndNowB" class="pill" title="今すぐノートをランダム化">Rnd Notes Now</button>
       </div>
       <div class="row" style="gap:12px; flex-wrap:wrap; margin-top:6px">
-        <div class="param" style="width:260px"><label>T-Chance</label><input id="tchanceB" type="range" min="0" max="200" value="100"><div class="value"><span id="tchanceBv">100</span>%</div></div>
+        <div class="param" style="width:260px"><label>T-Chance</label><input id="tchanceB" type="range" min="0" max="100" value="100"><div class="value"><span id="tchanceBv">100</span>%</div></div>
         <div class="param" style="width:220px"><label>Vol</label><input id="volB" type="range" min="0" max="100" value="50"><div class="value"><span id="volBv">50</span>%</div></div>
       </div>
       <div class="row" style="margin-top:6px">
